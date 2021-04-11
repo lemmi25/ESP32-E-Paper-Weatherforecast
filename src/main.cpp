@@ -8,7 +8,7 @@
 // According to the board, cancel the corresponding macro definition
 #define LILYGO_T5_V213
 #define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
-#define TIME_TO_SLEEP  60        /* Time ESP32 will go to sleep (in seconds) */
+#define TIME_TO_SLEEP  240        /* Time ESP32 will go to sleep (in seconds) */
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -93,8 +93,14 @@ http.begin("http://worldtimeapi.org/api/timezone/Europe/Berlin.json"); //Specify
       minute_wifi = (String)substring(date, 14, 2);
 
       week_number = doc["week_number"];
+      delay(500);
 
     }
+  }
+    else
+  {
+    Serial.println("Error on HTTP request Time");
+
 
 }
 }
@@ -160,7 +166,7 @@ void loop()
     display.print(bootCount);
     display.update();
 
-    delay(500);
+    delay(2000);
     esp_deep_sleep_start();
 
 }
