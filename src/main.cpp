@@ -123,7 +123,7 @@ void get_weather(){
 
       main_temp_now = docWeatherNow["main"]["temp"];         //Get current time forecast 0h
       feels_like = docWeatherNow["main"]["feels_like"];
-      
+
       main_temp_03 = docWeather["list"][1]["main"]["temp"];         //Get current time forecast 0h
       weather_description_03 = docWeather["list"][1]["weather"][0]["id"];
       String weather_icon_03 = docWeather["list"][1]["weather"][0]["icon"];
@@ -263,23 +263,23 @@ void loop()
 
     display.setFont(&FreeSansBold24pt7b);
     if((int)round(main_temp_now) < -9){
-      display.setCursor(0, 87);
+      display.setCursor(0, 82);
       display.print((int)round(main_temp_now));
-      display.setCursor(70, 60);
+      display.setCursor(70, 55);
 
       display.setFont(&FreeSansBold12pt7b);
       display.print("o");
     }else if((int)round(main_temp_now) >= 10 || (int)round(main_temp_now) < 0){
-      display.setCursor(0, 87);
+      display.setCursor(0, 82);
       display.print((int)round(main_temp_now));
-      display.setCursor(53, 60);
+      display.setCursor(53, 55);
       display.setFont(&FreeSansBold12pt7b);
       display.print("o");
 
     }else{
-      display.setCursor(20, 87);
+      display.setCursor(20, 82);
       display.print((int)round(main_temp_now));
-      display.setCursor(50, 60);
+      display.setCursor(50, 55);
       display.setFont(&FreeSansBold12pt7b);
       display.print("o");
 
@@ -316,7 +316,7 @@ void loop()
     display.setFont(&FreeSansBold9pt7b);
     display.print("o");
 
-    display.setCursor(230, 25);
+    display.setCursor(222, 22);
     display.print(houre_wifi_06);
 
     display.setFont(&FreeSansBold18pt7b);
@@ -338,7 +338,7 @@ void loop()
     display.setFont(&FreeSansBold9pt7b);
     display.print("o");
 
-    display.setCursor(154, 25);//63
+    display.setCursor(146, 22);//63
     display.print(houre_wifi_03);
 
     display.setFont(&FreeMonoBold9pt7b);
