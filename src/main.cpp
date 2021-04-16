@@ -8,7 +8,7 @@
 // According to the board, cancel the corresponding macro definition
 #define LILYGO_T5_V213
 #define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
-#define TIME_TO_SLEEP  300        /* Time ESP32 will go to sleep (in seconds) */
+#define TIME_TO_SLEEP  900        /* Time ESP32 will go to sleep (in seconds) */
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -146,6 +146,7 @@ void get_weather(){
       String c = docWeather["city"]["name"];
       city = c;
 
+
     if ((weather_description_03 >=200) && (weather_description_03 <= 232)){
       display.drawBitmap(thunderstorm_small, 15, 79, 100, 100, GxEPD_WHITE);
 
@@ -205,9 +206,9 @@ void get_weather(){
       display.drawBitmap(mist_small, 15, 167, 100, 100, GxEPD_WHITE);
     }else if(weather_description_06 == 800 ){
       if(weather_icon_06.substring(2,3) == "d"){
-        display.drawBitmap(clear_sky_small, 35, 177, 65, 65, GxEPD_WHITE);
+        display.drawBitmap(clear_sky_small, 35, 175, 65, 65, GxEPD_WHITE);
       }else{
-        display.drawBitmap(clear_sky_night_small, 15, 167, 100, 100, GxEPD_WHITE);
+        display.drawBitmap(clear_sky_night_small, 15, 160, 100, 100, GxEPD_WHITE);
       }
     }else if((weather_description_06 >=801) && (weather_description_06 <= 804)){
       if(weather_description_06 == 801){
@@ -254,7 +255,7 @@ void loop()
     
 
     display.setFont(&FreeMonoBold12pt7b);
-    display.setCursor(0, 20);
+    display.setCursor(5, 20);
     display.print(city);
 
     display.setFont(&FreeMonoBold9pt7b);
@@ -342,7 +343,7 @@ void loop()
     display.print(houre_wifi_03);
 
     display.setFont(&FreeMonoBold9pt7b);
-    display.setCursor(60, 121);
+    display.setCursor(55, 121);
     display.print(bootCount);
     
     display.update();
