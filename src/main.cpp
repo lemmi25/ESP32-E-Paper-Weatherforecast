@@ -7,8 +7,7 @@
 
 // According to the board, cancel the corresponding macro definition
 #define LILYGO_T5_V213
-#define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
-#define TIME_TO_SLEEP  900        /* Time ESP32 will go to sleep (in seconds) */
+
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -21,6 +20,9 @@
 #include <Adafruit_NeoPixel.h>             //Depend  https://github.com/adafruit/Adafruit_NeoPixel
 
 #include <GxDEPG0213BN/GxDEPG0213BN.h>    // 2.13" b/w  form DKE GROUP
+
+const uint64_t uS_TO_S_FACTOR = 1000000;  /* Conversion factor for micro seconds to seconds */
+const uint64_t TIME_TO_SLEEP  = 10800;        /* Time ESP32 will go to sleep (in seconds) every 3h*/
 
 RTC_DATA_ATTR int bootCount = 0;
 
@@ -148,77 +150,77 @@ void get_weather(){
 
 
     if ((weather_description_03 >=200) && (weather_description_03 <= 232)){
-      display.drawBitmap(thunderstorm_small, 15, 79, 100, 100, GxEPD_WHITE);
+      display.drawBitmap(thunderstorm_small, 15, 75, 100, 100, GxEPD_WHITE);
 
     }else if((weather_description_03 >=300) && (weather_description_03 <= 321)){
-      display.drawBitmap(shower_rain_small, 15, 79, 100, 100, GxEPD_WHITE);
+      display.drawBitmap(shower_rain_small, 15, 75, 100, 100, GxEPD_WHITE);
 
     }else if((weather_description_03 >=500) && (weather_description_03 <= 504)){
-      display.drawBitmap(rain_small, 15, 79, 100, 100, GxEPD_WHITE);
+      display.drawBitmap(rain_small, 15, 75, 100, 100, GxEPD_WHITE);
 
     }else if((weather_description_03 >=520) && (weather_description_03 <= 531)){
-      display.drawBitmap(shower_rain_small, 15, 79, 100, 100, GxEPD_WHITE);
+      display.drawBitmap(shower_rain_small, 15, 75, 100, 100, GxEPD_WHITE);
 
     }else if(weather_description_03 == 511){
-      display.drawBitmap(snow_small, 15, 79, 100, 100, GxEPD_WHITE);
+      display.drawBitmap(snow_small, 15, 75, 100, 100, GxEPD_WHITE);
 
     }else if((weather_description_03 >=600) && (weather_description_03 <= 622)){
-      display.drawBitmap(snow_small, 15, 79, 100, 100, GxEPD_WHITE);
+      display.drawBitmap(snow_small, 15, 75, 100, 100, GxEPD_WHITE);
 
     }else if((weather_description_03 >=701) && (weather_description_03 <= 781)){
-      display.drawBitmap(mist_small, 15, 79, 100, 100, GxEPD_WHITE);
+      display.drawBitmap(mist_small, 15, 75, 100, 100, GxEPD_WHITE);
 
     }else if(weather_description_03 == 800 ){
       if(weather_icon_03.substring(2,3) == "d"){
-        display.drawBitmap(clear_sky_small, 35, 89, 65, 65, GxEPD_WHITE);
+        display.drawBitmap(clear_sky_small, 35, 85, 65, 65, GxEPD_WHITE);
 
       }else{
-        display.drawBitmap(clear_sky_night_small, 15, 79, 100, 100, GxEPD_WHITE);
+        display.drawBitmap(clear_sky_night_small, 15, 75, 100, 100, GxEPD_WHITE);
 
       }
     }else if((weather_description_03 >=801) && (weather_description_03 <= 804)){
       if(weather_description_03 == 801){
-        display.drawBitmap(few_clouds_small, 15, 79, 100, 100, GxEPD_WHITE);
+        display.drawBitmap(few_clouds_small, 15, 75, 100, 100, GxEPD_WHITE);
 
       }else if (weather_description_03 == 802)
       {
-        display.drawBitmap(scattered_clouds_small, 15, 79, 100, 100, GxEPD_WHITE);
+        display.drawBitmap(scattered_clouds_small, 15, 75, 100, 100, GxEPD_WHITE);
 
       }else
       {
-        display.drawBitmap(broken_clouds_small, 15, 81, 100, 100, GxEPD_WHITE);
+        display.drawBitmap(broken_clouds_small, 15, 75, 100, 100, GxEPD_WHITE);
       }
     }
 
     if ((weather_description_06 >=200) && (weather_description_06 <= 232)){
-      display.drawBitmap(thunderstorm_small, 15, 167, 100, 100, GxEPD_WHITE);
+      display.drawBitmap(thunderstorm_small, 15, 162, 100, 100, GxEPD_WHITE);
     }else if((weather_description_06 >=300) && (weather_description_06 <= 321)){
-      display.drawBitmap(shower_rain_small, 15, 167, 100, 100, GxEPD_WHITE);
+      display.drawBitmap(shower_rain_small, 15, 162, 100, 100, GxEPD_WHITE);
     }else if((weather_description_06 >=500) && (weather_description_06 <= 504)){
-      display.drawBitmap(rain_small, 15, 167, 100, 100, GxEPD_WHITE);
+      display.drawBitmap(rain_small, 15, 162, 100, 100, GxEPD_WHITE);
     }else if((weather_description_06 >=520) && (weather_description_06 <= 531)){
-      display.drawBitmap(shower_rain_small, 15, 167, 100, 100, GxEPD_WHITE);
+      display.drawBitmap(shower_rain_small, 15, 162, 100, 100, GxEPD_WHITE);
     }else if(weather_description_06 == 511){
-      display.drawBitmap(snow_small, 15, 167, 100, 100, GxEPD_WHITE);
+      display.drawBitmap(snow_small, 15, 162, 100, 100, GxEPD_WHITE);
     }else if((weather_description_06 >=600) && (weather_description_06 <= 622)){
-      display.drawBitmap(snow_small, 15, 167, 100, 100, GxEPD_WHITE);
+      display.drawBitmap(snow_small, 15, 162, 100, 100, GxEPD_WHITE);
     }else if((weather_description_06 >=701) && (weather_description_06 <= 781)){
-      display.drawBitmap(mist_small, 15, 167, 100, 100, GxEPD_WHITE);
+      display.drawBitmap(mist_small, 15, 162, 100, 100, GxEPD_WHITE);
     }else if(weather_description_06 == 800 ){
       if(weather_icon_06.substring(2,3) == "d"){
-        display.drawBitmap(clear_sky_small, 35, 175, 65, 65, GxEPD_WHITE);
+        display.drawBitmap(clear_sky_small, 35, 170, 65, 65, GxEPD_WHITE);
       }else{
-        display.drawBitmap(clear_sky_night_small, 15, 160, 100, 100, GxEPD_WHITE);
+        display.drawBitmap(clear_sky_night_small, 15, 162, 100, 100, GxEPD_WHITE);
       }
     }else if((weather_description_06 >=801) && (weather_description_06 <= 804)){
       if(weather_description_06 == 801){
-        display.drawBitmap(few_clouds_small, 15, 167, 100, 100, GxEPD_WHITE);
+        display.drawBitmap(few_clouds_small, 15, 162, 100, 100, GxEPD_WHITE);
       }else if (weather_description_06 == 802)
       {
-        display.drawBitmap(scattered_clouds_small, 15, 167, 100, 100, GxEPD_WHITE);
+        display.drawBitmap(scattered_clouds_small, 15, 162, 100, 100, GxEPD_WHITE);
       }else
       {
-        display.drawBitmap(broken_clouds_small, 15, 167, 100, 100, GxEPD_WHITE);
+        display.drawBitmap(broken_clouds_small, 15, 162, 100, 100, GxEPD_WHITE);
       }
     }
       
