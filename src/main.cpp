@@ -22,7 +22,8 @@
 #include <GxDEPG0213BN/GxDEPG0213BN.h>    // 2.13" b/w  form DKE GROUP
 
 const uint64_t uS_TO_S_FACTOR = 1000000;  /* Conversion factor for micro seconds to seconds */
-const uint64_t TIME_TO_SLEEP  = 10800;        /* Time ESP32 will go to sleep (in seconds) every 3h*/
+const uint64_t TIME_TO_SLEEP  = 3600;        /* Time ESP32 will go to sleep (in seconds) every 1h*/
+const uint64_t TIME_TO_SLEEP_SHORT  = 60;        /* Time ESP32 will go to sleep (in seconds) every 1h*/
 
 RTC_DATA_ATTR int bootCount = 0;
 
@@ -72,34 +73,35 @@ HTTPClient httpWeather;
 void set_WiFi()
 {
   WiFi.mode(WIFI_STA);
-  WiFi.begin("FRITZ!Box 7490", "58625300401074548598");
-  // WiFi.scanNetworks will return the number of networks found
+  WiFi.begin("<ssid>", "<psw>"); 
+  //WiFi.scanNetworks will return the number of networks found
 
   int count = 0;
   while (WiFi.waitForConnectResult() != WL_CONNECTED)
   {
-/*     Serial.println("Connection Failed!");
- */
+    Serial.println("Connection Failed!");
+ 
     delay(1000);
 
     count++;
 
-    if(count == 10){
+    if(count == 5){
+      esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * TIME_TO_SLEEP_SHORT);
       esp_deep_sleep_start();
     }
    
   }
 
-/*   Serial.println("Ready");
+  Serial.println("Ready");
   Serial.print("IP address: ");
-  Serial.println(WiFi.localIP()); */
+  Serial.println(WiFi.localIP());
 }
 
 void get_weather(){
 
 
-  httpWeather.begin("http://api.openweathermap.org/data/2.5/forecast?q=Freiburg,de&cnt=3&units=metric&appid=03e2fbe874af4836c6bf932b697a809b");
-  httpWeatherNow.begin("http://api.openweathermap.org/data/2.5/weather?q=Freiburg,de&cnt=3&units=metric&appid=03e2fbe874af4836c6bf932b697a809b");
+  httpWeather.begin("http://api.openweathermap.org/data/2.5/forecast?q=<city>,de&cnt=3&units=<api>");
+  httpWeatherNow.begin("http://api.openweathermap.org/data/2.5/weather?q=<city>,de&cnt=3&units=metric&appid=<api>");
   int httpCodeWeather = httpWeather.GET();
   int httpCodeWeatherNow = httpWeatherNow.GET();
 
@@ -111,8 +113,9 @@ void get_weather(){
 
     if (errorWeather || errorWeatherNow)
     {
-/*       Serial.print(F("deserializeJson() from weather failed: "));
-      Serial.println(errorWeather.c_str()); */
+      Serial.print(F("deserializeJson() from weather failed: "));
+      Serial.println(errorWeather.c_str());
+      esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * TIME_TO_SLEEP_SHORT);
       esp_deep_sleep_start();
             
     }
@@ -126,23 +129,23 @@ void get_weather(){
       main_temp_now = docWeatherNow["main"]["temp"];         //Get current time forecast 0h
       feels_like = docWeatherNow["main"]["feels_like"];
 
-      main_temp_03 = docWeather["list"][1]["main"]["temp"];         //Get current time forecast 0h
-      weather_description_03 = docWeather["list"][1]["weather"][0]["id"];
-      String weather_icon_03 = docWeather["list"][1]["weather"][0]["icon"];
+      main_temp_03 = docWeather["list"][0]["main"]["temp"];         //Get current time forecast 0h
+      weather_description_03 = docWeather["list"][0]["weather"][0]["id"];
+      String weather_icon_03 = docWeather["list"][0]["weather"][0]["icon"];
 
-      main_temp_06 = docWeather["list"][2]["main"]["temp"];         //Get current time forecast 0h
-      weather_description_06 = docWeather["list"][2]["weather"][0]["id"];
-      String weather_icon_06 = docWeather["list"][2]["weather"][0]["icon"];
+      main_temp_06 = docWeather["list"][1]["main"]["temp"];         //Get current time forecast 0h
+      weather_description_06 = docWeather["list"][1]["weather"][0]["id"];
+      String weather_icon_06 = docWeather["list"][1]["weather"][0]["icon"];
 
       String dt_txt_now = docWeather["list"][0]["dt_txt"];
       month_wifi =  dt_txt_now.substring(5,7);
       day_wifi = dt_txt_now.substring(8,10); 
       houre_wifi_now = dt_txt_now.substring(11,13);
 
-      String dt_txt_03 = docWeather["list"][1]["dt_txt"];
+      String dt_txt_03 = docWeather["list"][0]["dt_txt"];
       houre_wifi_03 = dt_txt_03.substring(11,13);
 
-      String dt_txt_06 = docWeather["list"][2]["dt_txt"];
+      String dt_txt_06 = docWeather["list"][1]["dt_txt"];
       houre_wifi_06 = dt_txt_06.substring(11,13);
 
       String c = docWeather["city"]["name"];
@@ -233,9 +236,9 @@ void get_weather(){
 void setup()
 {
     
-    /*     Serial.begin(115200);
+    Serial.begin(115200);
     Serial.println();
-    Serial.println("setup"); */
+    Serial.println("setup"); 
 
     esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
 
