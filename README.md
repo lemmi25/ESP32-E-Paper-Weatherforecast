@@ -47,8 +47,8 @@ WiFi.begin("<ssid>", "<psw>");
 Set OpenWeather city and API key
 
 ```
-  httpWeather.begin("http://api.openweathermap.org/data/2.5/forecast?q=<city>,de&cnt=3&units=metric&appid=<id>");
-  httpWeatherNow.begin("http://api.openweathermap.org/data/2.5/weather?q=<city>,de&cnt=3&units=metric&appid=<id>");
+httpWeather.begin("http://api.openweathermap.org/data/2.5/forecast?q=<city>,de&cnt=3&units=metric&appid=<id>");
+httpWeatherNow.begin("http://api.openweathermap.org/data/2.5/weather?q=<city>,de&cnt=3&units=metric&appid=<id>");
 ```
 
 # Additional
