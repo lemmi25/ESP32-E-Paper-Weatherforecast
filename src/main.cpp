@@ -129,23 +129,23 @@ void get_weather(){
       main_temp_now = docWeatherNow["main"]["temp"];         //Get current time forecast 0h
       feels_like = docWeatherNow["main"]["feels_like"];
 
-      main_temp_03 = docWeather["list"][0]["main"]["temp"];         //Get current time forecast 0h
-      weather_description_03 = docWeather["list"][0]["weather"][0]["id"];
-      String weather_icon_03 = docWeather["list"][0]["weather"][0]["icon"];
+      main_temp_03 = docWeather["list"][1]["main"]["temp"];         //Get current time forecast 0h
+      weather_description_03 = docWeather["list"][1]["weather"][0]["id"];
+      String weather_icon_03 = docWeather["list"][1]["weather"][0]["icon"];
 
-      main_temp_06 = docWeather["list"][1]["main"]["temp"];         //Get current time forecast 0h
-      weather_description_06 = docWeather["list"][1]["weather"][0]["id"];
-      String weather_icon_06 = docWeather["list"][1]["weather"][0]["icon"];
+      main_temp_06 = docWeather["list"][2]["main"]["temp"];         //Get current time forecast 0h
+      weather_description_06 = docWeather["list"][2]["weather"][0]["id"];
+      String weather_icon_06 = docWeather["list"][2]["weather"][0]["icon"];
 
       String dt_txt_now = docWeather["list"][0]["dt_txt"];
       month_wifi =  dt_txt_now.substring(5,7);
       day_wifi = dt_txt_now.substring(8,10); 
       houre_wifi_now = dt_txt_now.substring(11,13);
 
-      String dt_txt_03 = docWeather["list"][0]["dt_txt"];
+      String dt_txt_03 = docWeather["list"][1]["dt_txt"];
       houre_wifi_03 = dt_txt_03.substring(11,13);
 
-      String dt_txt_06 = docWeather["list"][1]["dt_txt"];
+      String dt_txt_06 = docWeather["list"][2]["dt_txt"];
       houre_wifi_06 = dt_txt_06.substring(11,13);
 
       String c = docWeather["city"]["name"];
