@@ -1,4 +1,4 @@
-# E-Paper 
+# E-Paper Weatherforecast
 
 I made this E-Paper Weather forecast for my girlfriends 25th Birthday.
 
