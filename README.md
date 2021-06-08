@@ -9,6 +9,8 @@ It will beforme the following task
 3. Display data
 4. Go to deep sleep (defined by user)
 
+Here is the [Thingiverse](https://www.thingiverse.com/thing:4881359) page for the STL files and Material List.
+
 <p align="center"> 
 <img src="pictures/Main.jpg" width="500" height="400">
 </p>
