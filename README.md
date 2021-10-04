@@ -62,3 +62,29 @@ display.setFont(&FreeMonoBold9pt7b);
 display.setCursor(55, 121);
 display.print(bootCount);
 ```
+
+If you get an error like this:
+
+```
+In file included from .pio/libdeps/esp-wrover-kit/GxEPD/src/GxDEPG0150BN/../GxEPD.h:20:0,
+                 from .pio/libdeps/esp-wrover-kit/GxEPD/src/GxDEPG0150BN/GxDEPG0150BN.h:9,
+                 from .pio/libdeps/esp-wrover-kit/GxEPD/src/GxDEPG0150BN/GxDEPG0150BN.cpp:4:
+.pio/libdeps/esp-wrover-kit/GxEPD/src/GxDEPG0150BN/../GxFont_GFX.h:77:13: error: 'int16_t GxFont_GFX::getUTF8Width(const char*)' cannot be overloaded
+```
+
+comment:
+
+**GxFont_GFX.h**
+
+```
+int16_t getUTF8Width(const char *str);
+```
+
+**GxFont_GXF.cpp**
+
+```
+int16_t GxFont_GFX::getUTF8Width(const char *str)
+{
+  return ((_font_gfx == U8g2_for_Adafruit_GFX_font_gfx) ? _U8G2_FONTS_GFX.getUTF8Width(str) : 0);
+}
+```
