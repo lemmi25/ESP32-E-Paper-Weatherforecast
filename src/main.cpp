@@ -100,7 +100,7 @@ void set_WiFi()
 void get_weather(){
 
 
-  httpWeather.begin("http://api.openweathermap.org/data/2.5/forecast?q=<city>,de&cnt=3&units=<api>");
+  httpWeather.begin("http://api.openweathermap.org/data/2.5/forecast?q=<city>,de&cnt=3&units=metric&appid=<api>");
   httpWeatherNow.begin("http://api.openweathermap.org/data/2.5/weather?q=<city>,de&cnt=3&units=metric&appid=<api>");
   int httpCodeWeather = httpWeather.GET();
   int httpCodeWeatherNow = httpWeatherNow.GET();
